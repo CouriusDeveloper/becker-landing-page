@@ -1,0 +1,230 @@
+/* Scroll Journey Component Styles */
+.scroll-journey-section {
+  position: relative;
+  height: 400vh; /* Scroll height for smooth transitions */
+  z-index: 2; /* Above Spline container (-1) */
+  margin-top: 0; /* Start directly after hero */
+}
+
+/* Background with grid patterns */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.grid-pattern {
+  position: absolute;
+  top: 0;
+  height: 200vh; /* Double height for scrolling effect */
+  width: 30%;
+  overflow: hidden;
+}
+
+.grid-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transition: transform 0.1s linear;
+}
+
+.grid-pattern.left {
+  left: 0;
+}
+
+.grid-pattern.right {
+  right: 0;
+}
+
+/* Gradient overlay to blend the grid edges */
+.grid-pattern.left::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(26, 26, 46, 0.7), transparent);
+}
+
+.grid-pattern.right::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to left, transparent, rgba(15, 52, 96, 0.7), transparent);
+}
+
+/* Scroll container */
+.scroll-container {
+  position: relative;
+  height: 400vh;
+}
+
+/* Glassmorphic containers */
+.glass-container {
+  width: 90%;
+  max-width: 1200px;
+  height: 400px;
+  position: fixed;
+  left: 50%;
+  z-index: 10; /* Above all other components */
+  background: rgba(15, 52, 96, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(102, 171, 238, 0.3);
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  
+  /* Hard shadow for top-down lighting */
+  box-shadow: 
+    0 12px 25px -6px rgba(0, 20, 40, 0.7),
+    0 5px 10px -2px rgba(15, 52, 96, 0.6),
+    inset 0 1px 0 0 rgba(102, 171, 238, 0.2);
+  
+  /* Initial positioning */
+  transform: translateX(-50%);
+  transition: top 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Initial states */
+#container-1 {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+#container-2 {
+  top: 150vh;
+  opacity: 0;
+}
+
+#container-3 {
+  top: 150vh;
+  opacity: 0;
+}
+
+/* Image section (left half) */
+.image-section {
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.glass-container:hover .image-section img {
+  transform: scale(1.05);
+}
+
+/* Text section (right half) */
+.text-section {
+  height: 100%;
+  width: 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(15, 52, 96, 0.85);
+  border-left: 1px solid rgba(102, 171, 238, 0.3);
+}
+
+.text-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #cce7ff;
+  margin-bottom: 5px;
+  text-shadow: 0 2px 4px rgba(0, 20, 40, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.text-section p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(204, 231, 255, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 20, 40, 0.5);
+}
+
+/* Hover effects */
+.glass-container:hover {
+  transform: translateX(-50%) scale(1.03);
+  box-shadow: 
+    0 15px 30px -6px rgba(0, 20, 40, 0.8),
+    0 8px 15px -2px rgba(15, 52, 96, 0.7),
+    inset 0 1px 0 0 rgba(102, 171, 238, 0.3),
+    0 0 25px rgba(102, 171, 238, 0.2);
+  border-color: rgba(102, 171, 238, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .glass-container {
+    width: 95%;
+    height: 300px;
+    flex-direction: column;
+  }
+  
+  .image-section {
+    width: 100%;
+    height: 60%;
+  }
+  
+  .text-section {
+    width: 100%;
+    height: 40%;
+    padding: 20px;
+    border-left: none;
+    border-top: 1px solid rgba(102, 171, 238, 0.3);
+  }
+  
+  .text-section h2 {
+    font-size: 20px;
+  }
+  
+  .text-section p {
+    font-size: 14px;
+  }
+  
+  .grid-pattern {
+    width: 35%;
+  }
+}
+
+@media (max-width: 480px) {
+  .glass-container {
+    width: 95%;
+    height: 250px;
+  }
+  
+  .text-section {
+    padding: 15px;
+  }
+  
+  .text-section h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .text-section p {
+    font-size: 12px;
+  }
+}

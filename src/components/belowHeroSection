@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphic Scroll Journey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-container">
+        <div class="grid-pattern left"></div>
+        <div class="grid-pattern right"></div>
+        <div class="center-gradient"></div>
+    </div>
+
+    <div class="scroll-container">
+        <div class="glass-container" id="container-1">
+            <div class="image-section">
+                <img src="https://picsum.photos/600/400?random=1" alt="Image 1">
+            </div>
+            <div class="text-section">
+                <h2>First Journey</h2>
+                <p>This is the beginning of your scroll journey. The glassmorphic design creates a beautiful frosted effect with depth and dimension.</p>
+            </div>
+        </div>
+
+        <div class="glass-container" id="container-2">
+            <div class="image-section">
+                <img src="https://picsum.photos/600/400?random=2" alt="Image 2">
+            </div>
+            <div class="text-section">
+                <h2>Second Discovery</h2>
+                <p>As you continue scrolling, new containers reveal themselves with smooth transitions and elegant positioning.</p>
+            </div>
+        </div>
+
+        <div class="glass-container" id="container-3">
+            <div class="image-section">
+                <img src="https://picsum.photos/600/400?random=3" alt="Image 3">
+            </div>
+            <div class="text-section">
+                <h2>Final Destination</h2>
+                <p>The journey concludes with this final container, showcasing the seamless scroll-driven animation experience.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+    background: #0f0f0f;
+}
+
+/* Background with grid patterns */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+/* Remove the center-gradient element */
+.center-gradient {
+    display: none;
+}
+
+.grid-pattern {
+    position: absolute;
+    top: 0;
+    height: 200vh; /* Double height for scrolling effect */
+    width: 30%;
+    overflow: hidden;
+}
+
+.grid-pattern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transition: transform 0.1s linear;
+}
+
+.grid-pattern.left {
+    left: 0;
+}
+
+.grid-pattern.right {
+    right: 0;
+}
+
+/* Smoother gradient overlay to blend the grid edges */
+.grid-pattern.left::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(26, 26, 46, 0.7), transparent);
+}
+
+.grid-pattern.right::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to left, transparent, rgba(15, 52, 96, 0.7), transparent);
+}
+
+/* Scroll container */
+.scroll-container {
+    position: relative;
+    height: 400vh; /* Back to original height */
+}
+
+/* Glassmorphic containers - SCALED DOWN 50% */
+.glass-container {
+    width: 45%;
+    max-width: 300px; /* Was 600px */
+    height: 300px; /* Was 600px */
+    position: fixed;
+    left: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px; /* Scaled from 20px */
+    overflow: hidden;
+    
+    /* Hard shadow - scaled down */
+    box-shadow: 
+        0 12px 25px -6px rgba(0, 0, 0, 0.8),
+        0 5px 10px -2px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    
+    /* Initial positioning */
+    transform: translateX(-50%);
+    transition: top 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Initial states */
+#container-1 {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+#container-2 {
+    top: 150vh;
+    opacity: 0;
+}
+
+#container-3 {
+    top: 150vh;
+    opacity: 0;
+}
+
+/* Image section (2/3) */
+.image-section {
+    height: 66.67%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Text section (1/3) */
+.text-section {
+    height: 33.33%;
+    padding: 15px; /* Scaled from 30px */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.text-section h2 {
+    font-size: 18px; /* Scaled from 28px */
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 5px; /* Scaled from 10px */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text-section p {
+    font-size: 12px; /* Scaled from 16px */
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .glass-container {
+        width: 85%;
+        height: 250px; /* Scaled from 500px */
+    }
+    
+    .text-section {
+        padding: 12px; /* Scaled from 20px */
+    }
+    
+    .text-section h2 {
+        font-size: 16px; /* Scaled from 24px */
+    }
+    
+    .text-section p {
+        font-size: 11px; /* Scaled from 14px */
+    }
+    
+    .grid-pattern {
+        width: 35%;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const container1 = document.getElementById('container-1');
+    const container2 = document.getElementById('container-2');
+    const container3 = document.getElementById('container-3');
+    const gridPatterns = document.querySelectorAll('.grid-pattern::before');
+    
+    // Container height - SCALED DOWN 50%
+    const containerHeight = 300; // Was 600
+    const containerGap = 50; // Keeping the same gap
+    
+    // Calculate scroll sections
+    const sectionHeight = window.innerHeight;
+    
+    function updatePositions() {
+        const scrollY = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        const viewportCenter = viewportHeight / 2;
+        
+        // Move grid patterns only
+        const gridOffset = (scrollY * 0.5) % 50; // Loop every 50px (grid size)
+        const leftGrid = document.querySelector('.grid-pattern.left');
+        const rightGrid = document.querySelector('.grid-pattern.right');
+        
+        if (leftGrid) {
+            leftGrid.style.transform = `translateY(-${gridOffset}px)`;
+        }
+        if (rightGrid) {
+            rightGrid.style.transform = `translateY(-${gridOffset}px)`;
+        }
+        
+        // Calculate when containers should almost touch
+        const almostTouchingDistance = containerHeight + containerGap;
+        
+        // Section 1: Only container 1 visible in center
+        if (scrollY < sectionHeight * 0.7) { // Extended first section
+            container1.style.top = '50%';
+            container1.style.transform = 'translate(-50%, -50%)';
+            container1.style.opacity = '1';
+            
+            container2.style.top = '150vh';
+            container2.style.opacity = '0';
+            
+            container3.style.top = '150vh';
+            container3.style.opacity = '0';
+        }
+        // Pre-transition: Container 2 comes up but container 1 stays in place
+        else if (scrollY >= sectionHeight * 0.7 && scrollY < sectionHeight) {
+            const preProgress = (scrollY - sectionHeight * 0.7) / (sectionHeight * 0.3);
+            
+            // Container 1 stays centered
+            container1.style.top = '50%';
+            container1.style.transform = 'translate(-50%, -50%)';
+            container1.style.opacity = '1';
+            
+            // Container 2 moves up until almost touching
+            const container2StartTop = viewportHeight + containerHeight/2 + containerGap;
+            const container2AlmostTouchTop = viewportCenter + almostTouchingDistance;
+            const container2Top = container2StartTop + (container2AlmostTouchTop - container2StartTop) * preProgress;
+            container2.style.top = `${container2Top}px`;
+            container2.style.transform = 'translate(-50%, -50%)';
+            container2.style.opacity = '1';
+            
+            container3.style.top = '150vh';
+            container3.style.opacity = '0';
+        }
+        // Main transition: Both containers move
+        else if (scrollY >= sectionHeight && scrollY < sectionHeight * 1.3) {
+            const progress = (scrollY - sectionHeight) / (sectionHeight * 0.3);
+            
+            // Container 1 moves from center to above viewport
+            const container1EndPosition = -(containerHeight/2 + containerGap);
+            const container1StartPosition = viewportCenter;
+            const container1Top = container1StartPosition + (container1EndPosition - container1StartPosition) * progress;
+            container1.style.top = `${container1Top}px`;
+            container1.style.transform = 'translate(-50%, -50%)';
+            container1.style.opacity = container1Top > -containerHeight/2 ? '1' : '0';
+            
+            // Container 2 moves from almost touching to center
+            const container2StartTop = viewportCenter + almostTouchingDistance;
+            const container2EndTop = viewportCenter;
+            const container2Top = container2StartTop + (container2EndTop - container2StartTop) * progress;
+            container2.style.top = `${container2Top}px`;
+            container2.style.transform = 'translate(-50%, -50%)';
+            container2.style.opacity = '1';
+            
+            container3.style.top = '150vh';
+            container3.style.opacity = '0';
+        }
+        // Section 2: Container 2 centered
+        else if (scrollY >= sectionHeight * 1.3 && scrollY < sectionHeight * 2) {
+            container1.style.opacity = '0';
+            container1.style.top = '-100vh';
+            
+            container2.style.top = '50%';
+            container2.style.transform = 'translate(-50%, -50%)';
+            container2.style.opacity = '1';
+            
+            container3.style.top = '150vh';
+            container3.style.opacity = '0';
+        }
+        // Pre-transition 2: Container 3 comes up but container 2 stays in place
+        else if (scrollY >= sectionHeight * 2 && scrollY < sectionHeight * 2.3) {
+            const preProgress = (scrollY - sectionHeight * 2) / (sectionHeight * 0.3);
+            
+            container1.style.opacity = '0';
+            
+            // Container 2 stays centered
+            container2.style.top = '50%';
+            container2.style.transform = 'translate(-50%, -50%)';
+            container2.style.opacity = '1';
+            
+            // Container 3 moves up until almost touching
+            const container3StartTop = viewportHeight + containerHeight/2 + containerGap;
+            const container3AlmostTouchTop = viewportCenter + almostTouchingDistance;
+            const container3Top = container3StartTop + (container3AlmostTouchTop - container3StartTop) * preProgress;
+            container3.style.top = `${container3Top}px`;
+            container3.style.transform = 'translate(-50%, -50%)';
+            container3.style.opacity = '1';
+        }
+        // Main transition 2: Both containers move
+        else if (scrollY >= sectionHeight * 2.3 && scrollY < sectionHeight * 2.6) {
+            const progress = (scrollY - sectionHeight * 2.3) / (sectionHeight * 0.3);
+            
+            container1.style.opacity = '0';
+            
+            // Container 2 moves from center to above viewport
+            const container2EndPosition = -(containerHeight/2 + containerGap);
+            const container2StartPosition = viewportCenter;
+            const container2Top = container2StartPosition + (container2EndPosition - container2StartPosition) * progress;
+            container2.style.top = `${container2Top}px`;
+            container2.style.transform = 'translate(-50%, -50%)';
+            container2.style.opacity = container2Top > -containerHeight/2 ? '1' : '0';
+            
+            // Container 3 moves from almost touching to center
+            const container3StartTop = viewportCenter + almostTouchingDistance;
+            const container3EndTop = viewportCenter;
+            const container3Top = container3StartTop + (container3EndTop - container3StartTop) * progress;
+            container3.style.top = `${container3Top}px`;
+            container3.style.transform = 'translate(-50%, -50%)';
+            container3.style.opacity = '1';
+        }
+        // Section 3: Container 3 centered
+        else {
+            container1.style.opacity = '0';
+            container2.style.opacity = '0';
+            container2.style.top = '-100vh';
+            
+            container3.style.top = '50%';
+            container3.style.transform = 'translate(-50%, -50%)';
+            container3.style.opacity = '1';
+        }
+    }
+    
+    // Initial setup
+    updatePositions();
+    
+    // Optimized scroll handler
+    let ticking = false;
+    function requestTick() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                updatePositions();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', requestTick);
+    
+    // Handle resize
+    window.addEventListener('resize', function() {
+        updatePositions();
+    });
+});

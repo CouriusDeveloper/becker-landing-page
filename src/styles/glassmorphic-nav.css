@@ -1,0 +1,226 @@
+/* Glassmorphic Navigation Styles */
+
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.navbar-container {
+  background: rgba(15, 52, 96, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid rgba(102, 171, 238, 0.6);
+  border-radius: 25px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  box-shadow: 
+    0 8px 25px rgba(0, 20, 40, 0.7),
+    0 4px 15px rgba(15, 52, 96, 0.5),
+    inset 0 1px 0 rgba(102, 171, 238, 0.3);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-height: 56px;
+  width: fit-content;
+  margin: 0;
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.navbar[data-scrolled="true"] .navbar-container {
+  padding: 8px 16px;
+  gap: 16px;
+  border-radius: 20px;
+  min-height: 48px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #66abee;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  white-space: nowrap;
+}
+
+.navbar[data-scrolled="true"] .logo {
+  font-size: 14px;
+  gap: 8px;
+}
+
+.logo-icon {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.navbar[data-scrolled="true"] .logo-icon {
+  transform: scale(0.8);
+}
+
+.logo-text {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 1;
+  max-width: 200px;
+  overflow: hidden;
+}
+
+.navbar[data-scrolled="true"] .logo-text {
+  opacity: 0;
+  max-width: 0;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 15px;
+  color: #cce7ff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background: rgba(102, 171, 238, 0.3);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 
+    0 12px 30px rgba(0, 20, 40, 0.6),
+    0 6px 20px rgba(15, 52, 96, 0.4),
+    inset 0 1px 0 rgba(102, 171, 238, 0.8);
+  border: 2px solid rgba(102, 171, 238, 0.7);
+  text-shadow: 0 2px 4px rgba(0, 20, 40, 0.5);
+}
+
+.nav-item:active {
+  transform: translateY(0);
+}
+
+.navbar[data-scrolled="true"] .nav-item {
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.nav-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.nav-text {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 1;
+  max-width: 100px;
+  overflow: hidden;
+}
+
+.navbar[data-scrolled="true"] .nav-text {
+  opacity: 0;
+  max-width: 0;
+  margin: 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    top: 10px;
+  }
+  
+  .navbar-container {
+    padding: 8px 16px;
+    gap: 16px;
+    border-radius: 20px;
+    max-width: calc(100vw - 20px);
+  }
+  
+  .navbar[data-scrolled="true"] .navbar-container {
+    padding: 6px 12px;
+    gap: 12px;
+    border-radius: 18px;
+  }
+  
+  .logo {
+    font-size: 16px;
+  }
+  
+  .navbar[data-scrolled="true"] .logo {
+    font-size: 12px;
+  }
+  
+  .nav-item {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .navbar[data-scrolled="true"] .nav-item {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    max-width: calc(100vw - 16px);
+    gap: 12px;
+    padding: 6px 12px;
+  }
+  
+  .nav-text {
+    display: none;
+  }
+  
+  .logo-text {
+    display: none;
+  }
+  
+  .navbar[data-scrolled="true"] .navbar-container {
+    gap: 8px;
+    padding: 4px 8px;
+  }
+}
+
+/* Focus states for accessibility */
+.nav-item:focus {
+  outline: 2px solid rgba(102, 171, 238, 0.8);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .navbar-container,
+  .logo,
+  .nav-item,
+  .nav-text,
+  .nav-icon {
+    transition: none !important;
+  }
+}
